@@ -16,7 +16,7 @@ from app.schemas.user_schema import (
 
 
 router = APIRouter(
-    prefix="/auth",
+   
     tags=["Authentication"]
 )
 

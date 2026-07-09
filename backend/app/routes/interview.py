@@ -18,7 +18,7 @@ from app.database import (
 
 
 router = APIRouter(
-    prefix="/interview",
+
     tags=["Interview"]
 )
 

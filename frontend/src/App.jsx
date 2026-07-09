@@ -4,7 +4,7 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
-
+import CreateInterview from "./pages/CreateInterview";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -49,7 +49,10 @@ return (
 
 
 <Route path="/report/:id" element={<Report/>}/>
-
+<Route
+    path="/create-interview"
+    element={<CreateInterview />}
+/>
 
 
 </Routes>

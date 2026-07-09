@@ -1,101 +1,89 @@
 import { useState } from "react";
-import API from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import API from "../api/axios";
 
+function Login() {
 
-function Login(){
+    const navigate = useNavigate();
 
-const navigate = useNavigate();
-
-
-const [user,setUser]=useState({
-    email:"",
-    password:""
-});
-
-
-const handleChange=(e)=>{
-
-    setUser({
-        ...user,
-        [e.target.name]:e.target.value
+    const [user, setUser] = useState({
+        email: "",
+        password: ""
     });
 
-};
+    const handleChange = (e) => {
+        setUser({
+            ...user,
+            [e.target.name]: e.target.value
+        });
+    };
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-const handleSubmit=async(e)=>{
+        try {
 
-e.preventDefault();
+            const res = await API.post("/auth/login", user);
 
+            // Save JWT Token
+            localStorage.setItem(
+                "token",
+                res.data.access_token
+            );
 
-try{
+            // Save Logged-in User
+            localStorage.setItem(
+                "user",
+                JSON.stringify(res.data.user)
+            );
 
-const response = await API.post(
-    "/auth/login",
-    user
-);
+            alert("Login Successful");
 
+            navigate("/dashboard");
 
-localStorage.setItem(
-    "token",
-    response.data.access_token
-);
+        } catch (error) {
 
+            alert(
+                error.response?.data?.detail ||
+                "Login Failed"
+            );
 
-navigate("/dashboard");
+        }
+    };
 
+    return (
+        <div>
 
+            <h1>Login</h1>
+
+            <form onSubmit={handleSubmit}>
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={user.email}
+                    onChange={handleChange}
+                    required
+                />
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={user.password}
+                    onChange={handleChange}
+                    required
+                />
+
+                <button type="submit">
+                    Login
+                </button>
+
+            </form>
+
+        </div>
+    );
 }
-catch(error){
-
-console.log(error);
-alert("Login failed");
-
-}
-
-
-};
-
-
-return(
-
-<div>
-
-<h1>Login</h1>
-
-
-<form onSubmit={handleSubmit}>
-
-
-<input
-name="email"
-placeholder="Email"
-onChange={handleChange}
-/>
-
-
-<input
-name="password"
-type="password"
-placeholder="Password"
-onChange={handleChange}
-/>
-
-
-<button>
-Login
-</button>
-
-
-</form>
-
-
-</div>
-
-)
-
-}
-
 
 export default Login;
