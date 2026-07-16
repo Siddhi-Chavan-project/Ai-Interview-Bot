@@ -12,6 +12,8 @@ import Dashboard from "./pages/Dashboard";
 import InterviewSetup from "./pages/InterviewSetup";
 import Interview from "./pages/Interview";
 import Report from "./pages/Report";
+import Contact from "./pages/Contact";
+import About from "./pages/About";
 
 
 function App(){
@@ -32,7 +34,7 @@ return (
 
 <Route path="/" element={<Home/>}/>
 
-
+<Route path="/about" element={<About/>}/>
 <Route path="/login" element={<Login/>}/>
 
 
@@ -42,6 +44,7 @@ return (
 <Route path="/dashboard" element={<Dashboard/>}/>
 
 
+<Route path="/contact" element={<Contact/>}/>
 <Route path="/setup" element={<InterviewSetup/>}/>
 
 

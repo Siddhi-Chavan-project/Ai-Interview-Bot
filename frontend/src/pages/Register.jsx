@@ -1,6 +1,7 @@
 import { useState } from "react";
 import API from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import "../styles/Register.css";
 
 function Register(){
 
@@ -9,6 +10,7 @@ function Register(){
     const [user,setUser] = useState({
         name:"",
         email:"",
+        phone:"",
         password:""
     });
 
@@ -43,38 +45,71 @@ function Register(){
 
 
     return(
-        <div>
 
-            <h1>Register</h1>
+        <div className="register-page">
 
-            <form onSubmit={handleSubmit}>
+            <div className="register-card">
 
-                <input
-                name="name"
-                placeholder="Name"
-                onChange={handleChange}
-                />
+                <h1>Create Account</h1>
 
-                <input
-                name="email"
-                placeholder="Email"
-                onChange={handleChange}
-                />
 
-                <input
-                name="password"
-                type="password"
-                placeholder="Password"
-                onChange={handleChange}
-                />
+                <form 
+                className="register-form"
+                onSubmit={handleSubmit}
+                >
 
-                <button>
-                    Register
-                </button>
 
-            </form>
+                    <input
+                    name="name"
+                    placeholder="Full Name"
+                    onChange={handleChange}
+                    required
+                    />
+
+
+                    <input
+                    name="email"
+                    type="email"
+                    placeholder="Email Address"
+                    onChange={handleChange}
+                    required
+                    />
+
+
+                   
+                    <input
+                    name="password"
+                    type="password"
+                    placeholder="Password"
+                    onChange={handleChange}
+                    required
+                    />
+
+
+                    <button type="submit"
+                    onClick={()=>navigate("/login")}>
+                        Register
+                    </button>
+
+
+                </form>
+
+
+                <p className="register-login">
+
+                    Already signed in?{" "}
+
+                    <span onClick={()=>navigate("/login")}>
+                        Login
+                    </span>
+
+                </p>
+
+
+            </div>
 
         </div>
+
     )
 }
 

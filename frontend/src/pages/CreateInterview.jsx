@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/axios";
-
+import "../styles/CreateInterview.css";
 function CreateInterview() {
 
     const navigate = useNavigate();
@@ -62,67 +62,80 @@ function CreateInterview() {
     };
 
     return (
+ <div className="page-container">
+        <div className="create-interview-container">
 
-        <div>
 
             <h1>Create Interview</h1>
 
             <form onSubmit={handleSubmit}>
 
-                <input
-                    name="role"
-                    placeholder="Role (Java Developer)"
-                    value={interview.role}
-                    onChange={handleChange}
-                    required
-                />
+    <label>Target Role</label>
+    <input
+        name="role"
+        placeholder="e.g., Java Developer, Data Analyst"
+        value={interview.role}
+        onChange={handleChange}
+        required
+    />
 
-                <input
-                    name="experience"
-                    placeholder="Experience (0-1 Years)"
-                    value={interview.experience}
-                    onChange={handleChange}
-                    required
-                />
 
-                <select
-                    name="difficulty"
-                    value={interview.difficulty}
-                    onChange={handleChange}
-                    required
-                >
-                    <option value="">Select Difficulty</option>
-                    <option value="Easy">Easy</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Hard">Hard</option>
-                </select>
+    <label>Experience Level</label>
+    <input
+        name="experience"
+        placeholder="e.g., Fresher, 0-1 Years, 2 Years"
+        value={interview.experience}
+        onChange={handleChange}
+        required
+    />
 
-                <input
-                    name="technology"
-                    placeholder="Java, Spring Boot, MySQL"
-                    value={interview.technology}
-                    onChange={handleChange}
-                    required
-                />
 
-                <input
-                    type="number"
-                    name="number_of_questions"
-                    value={interview.number_of_questions}
-                    onChange={handleChange}
-                    min="1"
-                    max="20"
-                    required
-                />
+    <label>Interview Difficulty</label>
+    <select
+        name="difficulty"
+        value={interview.difficulty}
+        onChange={handleChange}
+        required
+    >
+        <option value="">Select Difficulty Level</option>
+        <option value="Easy">Easy</option>
+        <option value="Medium">Medium</option>
+        <option value="Hard">Hard</option>
+    </select>
 
-                <button type="submit">
-                    Start Interview
-                </button>
 
-            </form>
+    <label>Technology / Skills</label>
+    <input
+        name="technology"
+        placeholder="e.g., Java, Spring Boot, MySQL"
+        value={interview.technology}
+        onChange={handleChange}
+        required
+    />
+
+
+    <label>Number of Questions</label>
+    <input
+        type="number"
+        name="number_of_questions"
+        placeholder="Enter number of questions (1-20)"
+        value={interview.number_of_questions}
+        onChange={handleChange}
+        min="1"
+        max="20"
+        required
+    />
+
+
+    <button type="submit"
+   >
+        Start Interview
+    </button>
+
+</form>
 
         </div>
-
+</div>
     );
 }
 

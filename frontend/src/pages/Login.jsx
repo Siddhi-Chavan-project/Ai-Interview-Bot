@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/axios";
-
+import "../styles/Login.css";
 function Login() {
 
     const navigate = useNavigate();
@@ -51,21 +51,28 @@ function Login() {
         }
     };
 
-    return (
-        <div>
+  return (
+    <div className="login-page">
 
-            <h1>Login</h1>
+        <div className="login-card">
 
-            <form onSubmit={handleSubmit}>
+            <h1>Welcome Back</h1>
+
+
+            <form 
+            className="login-form"
+            onSubmit={handleSubmit}
+            >
 
                 <input
                     type="email"
                     name="email"
-                    placeholder="Email"
+                    placeholder="Email Address"
                     value={user.email}
                     onChange={handleChange}
                     required
                 />
+
 
                 <input
                     type="password"
@@ -76,14 +83,30 @@ function Login() {
                     required
                 />
 
-                <button type="submit">
+
+                <button type="submit" 
+                onClick={()=>navigate("/dashboard")}>
                     Login
                 </button>
 
             </form>
 
+
+            <p className="login-register">
+
+                Don't have an account?{" "}
+
+                <span onClick={()=>navigate("/register")}>
+                    Register
+                </span>
+
+            </p>
+
+
         </div>
-    );
+
+    </div>
+);
 }
 
 export default Login;
