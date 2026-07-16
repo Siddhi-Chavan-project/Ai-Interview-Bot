@@ -11,10 +11,10 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import InterviewSetup from "./pages/InterviewSetup";
 import Interview from "./pages/Interview";
-import Report from "./pages/Report";
+import Result from "./pages/Result";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
-
+import Report from "./pages/Report";
 
 function App(){
 
@@ -50,7 +50,7 @@ return (
 
 <Route path="/interview/:id" element={<Interview/>}/>
 
-
+<Route path="/result/:id" element={<Result/>}/>
 <Route path="/report/:id" element={<Report/>}/>
 <Route
     path="/create-interview"

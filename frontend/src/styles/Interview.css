@@ -1,92 +1,210 @@
-.interview-container{
+/* ==========================
+   Interview Page
+========================== */
 
-    width:90%;
-    max-width:900px;
-    margin:auto;
-    padding:40px;
+.page-container {
+    min-height: 100vh;
+    background: #0b1220;
+    padding: 120px 20px 50px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    font-family: "Inter", sans-serif;
+}
 
+.interview-container {
+    width: 100%;
+    max-width: 900px;
+    background: #111827;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 15px 40px rgba(0,0,0,.35);
+}
+
+.interview-container h1 {
+    color: #ffffff;
+    text-align: center;
+    font-size: 34px;
+    margin-bottom: 10px;
+}
+
+.interview-container h3 {
+    text-align: center;
+    color: #8fa4c3;
+    margin-bottom: 30px;
+    font-weight: 500;
 }
 
 
-.interview-container h1{
+/* ==========================
+   Question Card
+========================== */
 
-    color:white;
-    text-align:center;
-    margin-bottom:30px;
+.question-card {
+    background: #1b2537;
+    border: 1px solid #26344d;
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+}
 
+.question-card p {
+    color: #ffffff;
+    font-size: 19px;
+    line-height: 1.7;
+    margin-bottom: 25px;
+    font-weight: 500;
 }
 
 
+/* ==========================
+   Textarea
+========================== */
 
-.question-card{
+.question-card textarea {
+    width: 100%;
+    min-height: 180px;
+    resize: vertical;
+    border: 1px solid #32415c;
+    border-radius: 12px;
+    background: #0f172a;
+    color: white;
+    font-size: 16px;
+    padding: 16px;
+    outline: none;
+    transition: .3s;
+    font-family: inherit;
+    box-sizing: border-box;
+}
 
-    background:#111827;
-    padding:25px;
-    border-radius:15px;
-    margin-bottom:25px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+.question-card textarea:focus {
+    border-color: #4f7cff;
+    box-shadow: 0 0 12px rgba(79,124,255,.4);
+}
 
+.question-card textarea::placeholder {
+    color: #8a9bb8;
 }
 
 
+/* ==========================
+   Buttons
+========================== */
 
-.question-card h3{
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 35px;
+}
 
-    color:#38bdf8;
+.prev-btn,
+.next-btn {
+    border: none;
+    border-radius: 12px;
+    padding: 14px 35px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .3s;
+}
 
+.prev-btn {
+    background: #27364d;
+    color: white;
+}
+
+.prev-btn:hover:not(:disabled) {
+    background: #364965;
+}
+
+.prev-btn:disabled {
+    background: #1a2435;
+    color: #6c7a92;
+    cursor: not-allowed;
+}
+
+.next-btn {
+    background: linear-gradient(135deg,#4f7cff,#2563eb);
+    color: white;
+}
+
+.next-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(79,124,255,.35);
 }
 
 
+/* ==========================
+   Progress Badge
+========================== */
 
-.question-card p{
+.progress {
+    display: inline-block;
+    background: rgba(79,124,255,.15);
+    color: #7ea6ff;
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-size: 15px;
+    margin: 0 auto 25px;
+    font-weight: 600;
+}
 
-    color:white;
-    font-size:18px;
-
+.progress-wrapper {
+    display: flex;
+    justify-content: center;
 }
 
 
+/* ==========================
+   Loading
+========================== */
 
-textarea{
-
-    width:100%;
-    height:120px;
-    margin-top:15px;
-    padding:15px;
-
-    background:#020617;
-    color:white;
-
-    border:1px solid #334155;
-    border-radius:10px;
-
-    resize:none;
-
+.loading {
+    min-height: 100vh;
+    background: #0b1220;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    font-weight: bold;
 }
 
 
+/* ==========================
+   Responsive
+========================== */
 
-.submit-btn{
+@media(max-width:768px){
 
-    display:block;
-    margin:30px auto;
+    .page-container{
+        padding:100px 15px 40px;
+    }
 
-    padding:14px 40px;
+    .interview-container{
+        padding:25px;
+    }
 
-    background:#2563eb;
-    color:white;
+    .interview-container h1{
+        font-size:28px;
+    }
 
-    border:none;
-    border-radius:10px;
+    .question-card{
+        padding:20px;
+    }
 
-    font-size:18px;
-    cursor:pointer;
+    .question-card p{
+        font-size:17px;
+    }
 
-}
+    .button-group{
+        flex-direction:column;
+        gap:15px;
+    }
 
-
-.submit-btn:hover{
-
-    background:#1d4ed8;
+    .prev-btn,
+    .next-btn{
+        width:100%;
+    }
 
 }

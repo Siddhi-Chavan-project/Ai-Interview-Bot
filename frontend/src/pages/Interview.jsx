@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import API from "../api/axios";
 import "../styles/Interview.css";
 
-
 function Interview() {
 
-    const { interview_id } = useParams();
+    const { id } = useParams();
+    const navigate = useNavigate();
 
     const [questions, setQuestions] = useState([]);
     const [answers, setAnswers] = useState({});
+    const [currentQuestion, setCurrentQuestion] = useState(0);
     const [loading, setLoading] = useState(true);
-
 
     useEffect(() => {
 
@@ -19,16 +19,13 @@ function Interview() {
 
             try {
 
-                const res = await API.get(
-                    `/interview/${interview_id}`
-                );
+                const res = await API.get(`/interview/${id}`);
 
                 setQuestions(res.data.questions);
 
-            } catch(error) {
+            } catch (error) {
 
                 console.log(error);
-
                 alert("Failed to load interview");
 
             } finally {
@@ -39,73 +36,71 @@ function Interview() {
 
         };
 
-
         fetchInterview();
 
-    }, [interview_id]);
+    }, [id]);
 
 
-
-    const handleAnswer = (index, value) => {
-
-        setAnswers({
-            ...answers,
-            [index]: value
-        });
-
-    };
-
-
-
-    const submitInterview = async () => {
+    const nextQuestion = async () => {
 
         try {
 
             const payload = {
 
-                interview_id: interview_id,
+                interview_id: id,
 
-                answers: questions.map((question,index)=>({
+                question_number: currentQuestion + 1,
 
-                    question: question,
-                    answer: answers[index] || ""
-
-                }))
+                answer: answers[currentQuestion] || ""
 
             };
 
+            console.log(payload);
 
-            const res = await API.post(
-                "/interview/answer",
-                payload
-            );
+            await API.post("/interview/answer", payload);
 
+            if (currentQuestion < questions.length - 1) {
 
-            alert("Answers submitted successfully");
+                setCurrentQuestion(currentQuestion + 1);
 
-            console.log(res.data);
+            } else {
 
+                alert("Interview Completed");
 
-        } catch(error){
+                navigate(`/result/${id}`);
 
-            console.log(error);
+            }
 
-            alert("Submission failed");
+        } catch (error) {
+
+            console.log(error.response?.data);
+            alert("Failed to submit answer");
 
         }
 
     };
 
 
+    const previousQuestion = () => {
 
-    if(loading){
+        if (currentQuestion > 0) {
 
-        return <h2 className="loading">
-            Loading Interview...
-        </h2>
+            setCurrentQuestion(currentQuestion - 1);
+
+        }
+
+    };
+
+
+    if (loading) {
+
+        return (
+            <h2 className="loading">
+                Loading Interview...
+            </h2>
+        );
 
     }
-
 
 
     return (
@@ -114,62 +109,49 @@ function Interview() {
 
             <div className="interview-container">
 
+                <h1>AI Interview Session</h1>
 
-                <h1>
-                    AI Interview Session
-                </h1>
+                <h3>
+                    Question {currentQuestion + 1} of {questions.length}
+                </h3>
 
+                <div className="question-card">
 
-                {
-                    questions.map((question,index)=>(
+                    <p>{questions[currentQuestion]}</p>
 
-                        <div 
-                        className="question-card"
-                        key={index}
-                        >
+                    <textarea
+                        placeholder="Write your answer here..."
+                        value={answers[currentQuestion] || ""}
+                        onChange={(e) =>
+                            setAnswers({
+                                ...answers,
+                                [currentQuestion]: e.target.value
+                            })
+                        }
+                    />
 
-                            <h3>
-                                Question {index+1}
-                            </h3>
+                </div>
 
+                <div className="button-group">
 
-                            <p>
-                                {question}
-                            </p>
+                    <button
+                        className="prev-btn"
+                        onClick={previousQuestion}
+                        disabled={currentQuestion === 0}
+                    >
+                        Previous
+                    </button>
 
+                    <button
+                        className="next-btn"
+                        onClick={nextQuestion}
+                    >
+                        {currentQuestion === questions.length - 1
+                            ? "Finish Interview"
+                            : "Next Question"}
+                    </button>
 
-                            <textarea
-
-                            placeholder="Write your answer here..."
-
-                            value={
-                                answers[index] || ""
-                            }
-
-                            onChange={(e)=>
-                                handleAnswer(
-                                    index,
-                                    e.target.value
-                                )
-                            }
-
-                            />
-
-
-                        </div>
-
-                    ))
-                }
-
-
-
-                <button
-                onClick={submitInterview}
-                className="submit-btn"
-                >
-                    Submit Interview
-                </button>
-
+                </div>
 
             </div>
 
@@ -178,6 +160,5 @@ function Interview() {
     );
 
 }
-
 
 export default Interview;
