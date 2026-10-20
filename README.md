@@ -260,8 +260,6 @@ The Concept Transfer Verification Engine represents a research direction for exa
 
 **Siddhi Chavan**
 
-Master of Computer Applications (MCA)
-
 **Project:** Intervoro AI — AI-Powered Interview Preparation and Personalized Feedback
 
 ## 📄 License
