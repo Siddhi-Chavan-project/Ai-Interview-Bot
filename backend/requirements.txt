@@ -11,3 +11,4 @@ google-generativeai
 bcrypt==4.0.1
 pypdf
 python-docx
+google-genai
